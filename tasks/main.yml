@@ -1,0 +1,23 @@
+- name: Copy compose files to target host
+  copy:
+    src: "{{ item }}"
+    dest: "{{ dest_path }}"
+    owner: deploy
+    group: deploy
+    mode: 0644
+  with_fileglob:
+    - "{{ src_path }}/*.yaml"
+  tags:
+    - system
+
+- name: Stop containers if they run
+  community.general.docker_compose:
+    project_src: "{{ dest_path }}"
+    project_name: "{{ project_name }}"
+    remove_orphans: yes
+    stopped: yes
+
+# - name: Stop containers if they run
+#   shell: docker-compose -p {{ project_name }} down --remove-orphans || true
+#   args:
+#     chdir: "{{ dest_path }}"
