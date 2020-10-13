@@ -1,7 +1,7 @@
 compose-up-reqs
 =========
 
-A brief description of the role goes here.
+This role downloads compose files to target host and turn down running compose project
 
 Requirements
 ------------
