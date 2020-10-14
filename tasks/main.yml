@@ -10,16 +10,16 @@
   tags:
     - system
 
-- name: Set file_name variable 
+- name: Set project_file_name variable 
   set_fact:
-    file_name: "{{ item }}"
+    project_file_name: "{{ item }}"
   with_items: "{{ ansible_role_names }}"
   when: "'flask' in item"
 
 - name: Stop containers if they run
   community.general.docker_compose:
     project_src: "{{ dest_path }}"
-    files: "{{file_name}}.yaml"
+    files: "{{project_file_name}}.yaml"
     project_name: "{{ project_name }}"
     remove_orphans: yes
     stopped: yes
