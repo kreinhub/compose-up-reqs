@@ -14,9 +14,16 @@
   debug:
     var: ansible_role_names
 
+- name: Set compose_files variable 
+  set_fact:
+    file_name: "{{ item }}"
+  with_items: "{{ ansible_role_names }}"
+  when: "'flask' in item"
+
 - name: Print file name var
   debug:
     var: file_name
+
 
 - name: Stop containers if they run
   community.general.docker_compose:
