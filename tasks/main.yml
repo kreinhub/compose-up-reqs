@@ -10,9 +10,18 @@
   tags:
     - system
 
+- name: Print roles
+  debug:
+    var: ansible_role_names
+
+- name: Print file name var
+  debug:
+    var: file_name
+
 - name: Stop containers if they run
   community.general.docker_compose:
     project_src: "{{ dest_path }}"
+    files: "{{file_name}}.yaml"
     project_name: "{{ project_name }}"
     remove_orphans: yes
     stopped: yes
